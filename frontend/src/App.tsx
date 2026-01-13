@@ -1,20 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/layout/NavBar';
 import Entry from './pages/Entry';
-import { JobProvider } from '@/contexts/JobContext';
+import { ConsumptionProvider } from './contexts/ConsumptionContext';
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <JobProvider>
+      <ConsumptionProvider>
         <BrowserRouter>
           <NavBar />
           <Routes>
             <Route path="/" element={<Entry />} />
           </Routes>
         </BrowserRouter>
-      </JobProvider>
+      </ConsumptionProvider>
     </ThemeProvider>
   );
 }

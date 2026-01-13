@@ -1,3 +1,7 @@
+// TODO:  delete file once everything is transferred over to ConsumptionContext.jsx
+
+
+
 import { createContext, useContext, useState, type ReactNode } from 'react';
 
 interface JobContextType {
