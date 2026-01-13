@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { ModeToggle } from '@/components/mode-toggle';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 export default function NavBar() {
   const location = useLocation();
@@ -17,16 +17,7 @@ export default function NavBar() {
                 location.pathname === "/" ? "text-foreground" : "text-muted-foreground"
               )}
             >
-              Summarize
-            </Link>
-            <Link
-              to="/job-matcher"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                location.pathname === "/job-matcher" ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              Resume Matcher
+              Entry
             </Link>
             <Link
               to="/cover-letter"
@@ -35,7 +26,7 @@ export default function NavBar() {
                 location.pathname === "/cover-letter" ? "text-foreground" : "text-muted-foreground"
               )}
             >
-              Cover Letter
+              NOT cover letter
             </Link>
           </div>
 

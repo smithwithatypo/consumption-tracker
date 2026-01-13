@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import JobMatcher from './components/JobMatcher';
-import CoverLetter from './components/CoverLetter';
-import Summarize from './components/Summarize';
+import NavBar from './components/layout/NavBar';
+import Entry from './pages/Entry';
 import { JobProvider } from '@/contexts/JobContext';
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/ui/theme-provider"
 
 function App() {
   return (
@@ -13,9 +11,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Routes>
-            <Route path="/" element={<Summarize />} />
-            <Route path="/job-matcher" element={<JobMatcher />} />
-            <Route path="/cover-letter" element={<CoverLetter />} />
+            <Route path="/" element={<Entry />} />
           </Routes>
         </BrowserRouter>
       </JobProvider>

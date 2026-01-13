@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useJob } from '@/contexts/JobContext';
 import { X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown'
 
-export default function Summarize() {
+export default function Entry() {
   const {
     jobDescription,
     setJobDescription,
@@ -16,7 +16,7 @@ export default function Summarize() {
   } = useJob();
   const [loading, setLoading] = useState(false);
 
-  const handleSummarize = async () => {
+  const handleEntry = async () => {
     setLoading(true);
     try {
       const response = await fetch('http://localhost:8080/api/summarize', {
@@ -39,7 +39,7 @@ export default function Summarize() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Summarizer</h1>
+      <h1 className="text-2xl font-bold">Entry</h1>
       <Textarea
         placeholder="Paste job description here..."
         value={jobDescription}
@@ -47,13 +47,13 @@ export default function Summarize() {
         onKeyDown={(e) => {
           if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && !loading) {
             e.preventDefault();
-            handleSummarize();
+            handleEntry();
           }
         }}
         rows={8}
       />
 
-      <Button onClick={handleSummarize} disabled={loading || !jobDescription}>
+      <Button onClick={handleEntry} disabled={loading || !jobDescription}>
         {loading ? 'Generating...' : 'Generate Summary'}
       </Button>
 
