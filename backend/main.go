@@ -18,6 +18,7 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Println("No .env file found")
 	}
+
 	// Get connection string from env
 	environment := os.Getenv("ENVIRONMENT")
 	dbURL := ""
@@ -69,5 +70,15 @@ func main() {
 	// r.Post("/api/summarize", handlers.SummarizeJobDescription)
 	r.Post("/api/entries", entryHandler.Create)
 
-	http.ListenAndServe(":8080", r)
+	// Server
+	// http.ListenAndServe(":8080", r)  // deprecated in favor of railway support below
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback for local dev
+	}
+
+	log.Printf("Server starting on port %s", port)
+	if err := http.ListenAndServe(":"+port, r); err != nil {
+		log.Fatal(err)
+	}
 }
