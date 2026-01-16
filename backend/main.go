@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
-	"github.com/smithwithatypo/consumption-tracker/"
+	"github.com/smithwithatypo/consumption-tracker"
 )
 
 func main() {
@@ -31,10 +31,7 @@ func main() {
 	})
 
 	// Routes
-	r.Post("/api/summarize", handlers.SummarizeJobDescription)
-	r.Post("/api/chat", handlers.HandleChat)
-	r.Post("/api/projects/match", handlers.MatchProjects)
-	r.Post("/api/cover-letter", handlers.GenerateCoverLetter)
+	// r.Post("/api/summarize", handlers.SummarizeJobDescription)
 
 	http.ListenAndServe(":8080", r)
 }
