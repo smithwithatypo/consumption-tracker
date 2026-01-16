@@ -19,15 +19,15 @@ export default function NavBar() {
             >
               Entry
             </Link>
-            <Link
-              to="/cover-letter"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                location.pathname === "/cover-letter" ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              NOT cover letter
-            </Link>
+            {/* <Link */}
+            {/*   to="/cover-letter" */}
+            {/*   className={cn( */}
+            {/*     "text-sm font-medium transition-colors hover:text-primary", */}
+            {/*     location.pathname === "/cover-letter" ? "text-foreground" : "text-muted-foreground" */}
+            {/*   )} */}
+            {/* > */}
+            {/*   NOT cover letter */}
+            {/* </Link> */}
           </div>
 
           <ModeToggle />
