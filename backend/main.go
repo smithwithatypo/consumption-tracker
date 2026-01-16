@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -57,7 +59,7 @@ func main() {
 	// Middleware
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"http://localhost:5173"},
+		AllowedOrigins: []string{"http://localhost:5173", "https://*.up.railway.app"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 	}))
 
@@ -70,8 +72,12 @@ func main() {
 	// r.Post("/api/summarize", handlers.SummarizeJobDescription)
 	r.Post("/api/entries", entryHandler.Create)
 
+	// Serve static files (frontend)
+	workDir, _ := os.Getwd()
+	filesDir := http.Dir(filepath.Join(workDir, "static"))
+	FileServer(r, "/", filesDir)
+
 	// Server
-	// http.ListenAndServe(":8080", r)  // deprecated in favor of railway support below
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // fallback for local dev
@@ -81,4 +87,21 @@ func main() {
 	if err := http.ListenAndServe(":"+port, r); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// FileServer conveniently sets up a http.FileServer handler to serve
+// static files from a http.FileSystem.
+func FileServer(r chi.Router, path string, root http.FileSystem) {
+	if path != "/" && path[len(path)-1] != '/' {
+		r.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)
+		path += "/"
+	}
+	path += "*"
+
+	r.Get(path, func(w http.ResponseWriter, req *http.Request) {
+		rctx := chi.RouteContext(req.Context())
+		pathPrefix := strings.TrimSuffix(rctx.RoutePattern(), "/*")
+		fs := http.StripPrefix(pathPrefix, http.FileServer(root))
+		fs.ServeHTTP(w, req)
+	})
 }

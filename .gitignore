@@ -4,6 +4,7 @@ frontend/dist/
 
 # Backend
 backend/tmp/
+backend/static/
 
 # Env files
 .env
