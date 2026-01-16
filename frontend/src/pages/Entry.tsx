@@ -38,7 +38,6 @@ export default function Entry() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // fetch(`${API_BASE}/api/entries`, ...)
     try {
       const response = await fetch(`${API_BASE}/api/entries`, {
         method: 'POST',

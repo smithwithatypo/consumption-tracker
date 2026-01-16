@@ -59,7 +59,7 @@ func main() {
 	// Middleware
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"http://localhost:5173", "https://*.up.railway.app"},
+		AllowedOrigins: []string{"http://localhost:5173"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 	}))
 
