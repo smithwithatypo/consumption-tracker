@@ -1,6 +1,5 @@
 [build]
-builder = "nixpacks"
-buildCommand = "cd backend && go build -o bin/server main.go"
+dockerfilePath = "backend/Dockerfile"
 
 [deploy]
-startCommand = "cd backend && ./bin/server"
+startCommand = "./bin/server"
