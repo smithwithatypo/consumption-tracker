@@ -18,6 +18,11 @@ import {
 
 const CATEGORIES = ['media', 'food', 'social', 'sleep', 'exercise', 'self']
 
+const API_BASE = import.meta.env.DEV
+  ? 'http://localhost:8080'  // Vite dev server → Go backend
+  : '';  // Production: same origin
+
+
 export default function Entry() {
   // const {    // this is how to use the context
   //   userInput,
@@ -33,8 +38,9 @@ export default function Entry() {
     e.preventDefault()
     setIsSubmitting(true)
 
+    // fetch(`${API_BASE}/api/entries`, ...)
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/entries`, {
+      const response = await fetch(`${API_BASE}/api/entries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ category, description, mood }),
