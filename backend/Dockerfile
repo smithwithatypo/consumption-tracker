@@ -11,27 +11,12 @@ COPY backend/go.* ./
 RUN go mod download
 COPY backend/ ./
 COPY --from=frontend-builder /app/dist ./static
-RUN go build -o server main.go
+RUN go build -o bin/server main.go
 
 FROM alpine:latest
 WORKDIR /app
-COPY --from=backend-builder /app/server .
+COPY --from=backend-builder /app/bin/server ./bin/server
 COPY --from=backend-builder /app/static ./static
 EXPOSE 8080
-CMD ["./server"]
+CMD ["./bin/server"]
 
-
-
-
-# FROM golang:1.24-alpine
-#
-# WORKDIR /app
-#
-# COPY . .
-#
-# RUN go mod download
-# RUN go build -o bin/server main.go
-#
-# EXPOSE 8080
-#
-# CMD ["./bin/server"]
